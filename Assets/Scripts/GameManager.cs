@@ -21,6 +21,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI winnerText;
     [SerializeField] private Button restartButton;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;    // Add this if you don’t already have one
+    [SerializeField] private AudioClip gameOverSound;    // New clip for end-of-game
+
     private int leftScore = 0;
     private int rightScore = 0;
 
@@ -75,14 +79,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void EndGame(string message)
+    public void EndGame(string message)
     {
         gameOver = true;
 
         BallMovement.Instance.StopBall();
+        BallMovement.Instance.StopMusic();
 
         winnerText.text = message;
         restartButton.gameObject.SetActive(true);
+
+        if (audioSource != null && gameOverSound != null)
+            {
+                audioSource.PlayOneShot(gameOverSound);
+            }
     }
 
     private void RestartGame()
