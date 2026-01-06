@@ -148,13 +148,29 @@ public class BallMovement : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
     }
-    
+
     public void StopMusic()
-{
-    if (musicSource != null && musicSource.isPlaying)
     {
-        musicSource.Stop();
-        musicSource.pitch = defaultMusicPitch;
+        if (musicSource != null && musicSource.isPlaying)
+        {
+            musicSource.Stop();
+            musicSource.pitch = defaultMusicPitch;
+        }
     }
-}
+
+    public void PauseMusic()
+    {
+        if (musicSource != null && musicSource.isPlaying)
+        {
+            musicSource.Pause();
+        }
+    }
+
+    public void ResumeMusic()
+    {
+        if (musicSource != null)
+        {
+            musicSource.UnPause();
+        }
+    }
 }
